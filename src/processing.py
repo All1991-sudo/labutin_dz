@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 
-def sorted_dict(data: List[dict], EXECUTED=True) -> List[dict]:
+def sorted_dict(data: List[dict], executed: Optional[bool] = True) -> List[dict]:
     """Функция принимает список словарей и по умолчанию возвращает только те,
-    у которых ключе 'state' значение 'EXECUTED'. Если же передать в параметр EXECUTED
+    у которых ключе 'state' значение 'EXECUTED'. Если же передать в параметр executed
     значение False при вызове функции, вернутся списки со значением CANCELED в ключе
     'state'
     """
@@ -13,15 +13,15 @@ def sorted_dict(data: List[dict], EXECUTED=True) -> List[dict]:
     for i in data:
         for k, v in i.items():
             if k == "state":
-                if v == "EXECUTED" and EXECUTED:
+                if v == "EXECUTED" and executed:
                     result.append(i)
                 else:
-                    if not EXECUTED and v == "CANCELED":
+                    if not executed and v == "CANCELED":
                         result.append(i)
     return result
 
 
-def sorted_dict2(date: List[dict], sorting=True) -> List[dict]:
+def sorted_dict2(date: List[dict], sorting: Optional[bool] = True) -> List[dict]:
     """Функция принимает список словарей, в котором есть дата формата iso 8601
     и сортирует список словарей по дате. (По умолчанию сортировка по убыванию).
     Если при вызове функции передать в параметр 'sorting' значение False, сортировка
