@@ -1,5 +1,4 @@
 import pytest
-from collections import OrderedDict
 
 
 @pytest.fixture
