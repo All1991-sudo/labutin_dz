@@ -42,7 +42,7 @@ def mask_card(numbers_card_check: str) -> str:
                 mask += i
                 mask += " "
                 count = 0
-
+        mask = mask.rstrip()
         return f"{start} {mask}"
     else:
         if len(numbers_card_check.split()[-1]) == 20:
@@ -50,10 +50,6 @@ def mask_card(numbers_card_check: str) -> str:
             return f"{start} **{numbers_card_check[-4:]}"
         else:
             return "Введён некорректный номер счёта или карты!"
-
-
-result = mask_card("Visa Gold 12345678451545781234")
-print(result)
 
 
 def date(curr_date: str) -> str:
