@@ -20,7 +20,6 @@ def sorted_dict(data: List[dict], executed: Optional[bool]) -> List[dict]:
                         result.append(i)
     return result
 
-
 def sorted_dict_to_time(date: List[dict], sorting: Optional[bool]) -> List[dict]:
     """Функция принимает список словарей, в котором есть дата формата iso 8601
     и сортирует список словарей по дате. (По умолчанию сортировка по убыванию).
