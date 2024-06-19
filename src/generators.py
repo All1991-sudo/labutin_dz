@@ -1,3 +1,5 @@
+from typing import Iterable, Generator, Dict, List
+
 transactions = [
     {
         "id": 939719570,
@@ -62,7 +64,18 @@ transactions = [
 ]
 
 
-def filter_by_currency(transaction_data, currency):
+def filter_by_currency(transaction_data: Iterable[Dict], currency: str) -> Generator[Dict, None, None]:
+    """
+    Функция фильтрует транзакции по валюте.
+
+    Args:
+        transaction_data (Iterable[Dict]): Список транзакций для фильтрации.
+        currency (str): Код валюты для фильтрации.
+
+    Yields:
+        Dict: Транзакция, у которой валюта соответствует заданной валюте.
+
+    """
     if isinstance(transaction_data, (list, tuple)):
         for transaction in transaction_data:
             if (
@@ -72,7 +85,17 @@ def filter_by_currency(transaction_data, currency):
                 yield transaction
 
 
-def transaction_descriptions(transact):
+def transaction_descriptions(transact: List[Dict]) -> Generator[str, None, None]:
+    """
+    Функция извлекает описание транзакций.
+
+    Args:
+        transact (List[Dict]): Список транзакций.
+
+    Yields:
+        str: Описание каждой транзакции в списке.
+
+    """
     if isinstance(transact, list):
         for transaction in transact:
             try:
@@ -82,7 +105,18 @@ def transaction_descriptions(transact):
                 pass
 
 
-def card_number_generator(start, num_card):
+def card_number_generator(start: int, num_card: int) -> Generator[str, None, None]:
+    """
+    Генерирует номера кредитных карт.
+
+    Args:
+        start (int): Начальное значение для генерации номеров.
+        num_card (int): Количество карт для сгенерирования.
+
+    Yields:
+        str: Сгенерированный номер кредитной карты.
+
+    """
     for i in range(start, num_card):
         card_num = f"{i:016}"
         str_num = " ".join([card_num[x: x + 4] for x in range(0, len(card_num), 4)])
