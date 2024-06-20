@@ -1,25 +1,34 @@
-from src.generators import transaction_descriptions, card_number_generator, filter_by_currency
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
 
 
 def test_filter_by_currency():
     transaction_data = [
-        {"operationAmount": {"currency": {"code": "USD"}}, "description": "Transaction 1"},
-        {"operationAmount": {"currency": {"code": "EUR"}}, "description": "Transaction 2"},
-        {"operationAmount": {"currency": {"code": "USD"}}, "description": "Transaction 3"}
+        {
+            "operationAmount": {"currency": {"code": "USD"}},
+            "description": "Transaction 1",
+        },
+        {
+            "operationAmount": {"currency": {"code": "EUR"}},
+            "description": "Transaction 2",
+        },
+        {
+            "operationAmount": {"currency": {"code": "USD"}},
+            "description": "Transaction 3",
+        },
     ]
 
     result = list(filter_by_currency(transaction_data, "USD"))
 
     assert len(result) == 2
-    assert all(transaction["operationAmount"]["currency"]["code"] == "USD" for transaction in result)
+    assert all(
+        transaction["operationAmount"]["currency"]["code"] == "USD"
+        for transaction in result
+    )
 
 
 def test_transaction_descriptions():
-    transactions = [
-        {"description": "Transaction 1"},
-        {"description": ""},
-        {}
-    ]
+    transactions = [{"description": "Transaction 1"}, {"description": ""}, {}]
 
     result = list(transaction_descriptions(transactions))
 

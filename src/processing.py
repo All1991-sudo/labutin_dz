@@ -11,18 +11,19 @@ def sorted_dict(data: List[dict], executed: Optional[bool] = True) -> List[dict]
     По умолчанию установлен в True, что означает, что по умолчанию будут возвращены только выполненные элементы.
 
     Returns:
-    List[dict]: Отфильтрованный список словарей, содержащий только те элементы, у которых ключ "state" соответствует заданному условию.
+            List[dict]: Отфильтрованный список словарей, содержащий только те элементы,
+                        у которых ключ "state" соответствует заданному условию.
 
     Примеры использования:
-        >>> data = [
-        ...     {"state": "EXECUTED", "value": 42},
-        ...     {"state": "CANCELED", "value": 37},
-        ...     {"state": "CANCELED", "value": 58}
-        ... ]
-        >>> sorted_dict(data)
+        data = [
+            {"state": "EXECUTED", "value": 42},
+            {"state": "CANCELED", "value": 37},
+            {"state": "CANCELED", "value": 58}]
+
+        sorted_dict(data)
         [{'state': 'EXECUTED', 'value': 42}]
 
-        >>> sorted_dict(data, executed=False)
+        sorted_dict(data, executed=False)
         [{'state': 'CANCELED', 'value': 58}]
 
     Функция sorted_dict итерирует по каждому элементу в списке словарей и добавляет элемент в результирующий список,
@@ -42,7 +43,7 @@ def sorted_dict(data: List[dict], executed: Optional[bool] = True) -> List[dict]
     return result
 
 
-def sorted_dict_to_time(date: List[dict], sorting: Optional[bool]) -> List[dict]:
+def sorted_dict_to_time(date: List[dict], sorting: Optional[bool] = True) -> List[dict]:
     """Функция принимает список словарей, в котором есть дата формата iso 8601
     и сортирует список словарей по дате. (По умолчанию сортировка по убыванию).
     Если при вызове функции передать в параметр 'sorting' значение False, сортировка

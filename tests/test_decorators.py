@@ -1,7 +1,7 @@
 from src.decorators import log
 
-# Тесты для декоратора log
 
+# Тесты для декоратора log
 def test_log_decorator_without_output():
     @log
     def multiply(a, b):
@@ -18,7 +18,7 @@ def test_log_decorator_with_output():
         return a / b
 
     # Вызываем функцию
-    result = divide(10, 2)
+    divide(10, 2)
 
     # Проверяем, что результат записался в файл
     with open(mock_output_file, "r") as file:
@@ -35,7 +35,7 @@ def test_log_decorator_exception_handling():
         return "Hello, " + name
 
     # Тестируем, что исключение обрабатывается и записывается в файл
-    result = greet(123)  # Вызываем функцию с некорректным параметром
+    greet(123)  # Вызываем функцию с некорректным параметром
 
     with open(mock_output_file, "r") as file:
         content = file.read()
