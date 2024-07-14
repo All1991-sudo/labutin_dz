@@ -1,33 +1,54 @@
+import os
+from unittest.mock import Mock, patch
+
+from dotenv import load_dotenv
+
 from src.external_api import convert_to_rub
-from unittest.mock import patch
+
+load_dotenv()
+API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
+data = {
+    "id": 939719570,
+    "state": "EXECUTED",
+    "date": "2018-06-30T02:08:58.425572",
+    "operationAmount": {
+        "amount": "9824.07",
+        "currency": {
+            "name": "USD",
+            "code": "USD"
+        }
+    }
+}
 
 
-# Тестирование конвертации USD в RUB
-def test_conversion_usd_to_rub():
-    with patch('src.external_api.get_currency_rate', return_value=75.0):
-        transaction = {'amount': 100, 'currency': 'USD'}
-        assert convert_to_rub(transaction) == 7500.0
+def test_convert_to_rub_usd():
+    with patch('requests.get') as mock_get:
+        mock_response = Mock()
+        expected_result = 30000.0
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"result": expected_result}
+        mock_get.return_value = mock_response
+
+        result = convert_to_rub(data, key=API_KEY)
+        assert result == expected_result
 
 
-# Тестирование конвертации EUR в RUB
-def test_conversion_eur_to_rub():
-    with patch('src.external_api.get_currency_rate', return_value=90.0):
-        transaction = {'amount': 100, 'currency': 'EUR'}
-        assert convert_to_rub(transaction) == 9000.0
+def test_convert_to_rub_no_key():
+    result = convert_to_rub(data, key=None)
+    assert result == "Для получения результата конвертации по актуальному курсу введите api ключ."
 
 
-# Тестирование конвертации RUB в RUB (должна вернуть исходную сумму)
-def test_conversion_rub_to_rub():
-    transaction = {'amount': 100, 'currency': 'RUB'}
-    assert convert_to_rub(transaction) == 100.0
+def test_convert_to_rub_error():
+    with patch('requests.get') as mock_get:
+        mock_response = Mock()
+        mock_response.status_code = 401
+        mock_get.return_value = mock_response
+
+        result = convert_to_rub(data, key=API_KEY)
+        assert result is None
 
 
-# Запуск всех тестов
-def run_all_tests():
-    test_conversion_usd_to_rub()
-    test_conversion_eur_to_rub()
-    test_conversion_rub_to_rub()
-
-
-# Запуск тестов
-run_all_tests()
+if __name__ == '__main__':
+    test_convert_to_rub_usd()
+    test_convert_to_rub_no_key()
+    test_convert_to_rub_error()
