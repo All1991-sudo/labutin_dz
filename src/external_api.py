@@ -5,18 +5,15 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
+API_KEY = os.getenv("EXCHANGE_RATES_API_KEY")
 data = {
     "id": 939719570,
     "state": "EXECUTED",
     "date": "2018-06-30T02:08:58.425572",
     "operationAmount": {
         "amount": "9824.07",
-        "currency": {
-            "name": "USD",
-            "code": "USD"
-        }
-    }
+        "currency": {"name": "USD", "code": "USD"},
+    },
 }
 
 
@@ -24,8 +21,8 @@ def convert_to_rub(transaction: Dict[str, Any], key: str) -> float | str | Any:
     """
     Конвертация суммы транзакции в рубли. key - необязательный параметр принимающий строку api ключа.
     """
-    amount = float(transaction["operationAmount"]['amount'])
-    currency = transaction["operationAmount"]['currency']["code"]
+    amount = float(transaction["operationAmount"]["amount"])
+    currency = transaction["operationAmount"]["currency"]["code"]
     if currency == "RUB":
         return amount
     else:
@@ -39,9 +36,7 @@ def convert_to_rub(transaction: Dict[str, Any], key: str) -> float | str | Any:
             )
 
             payload = {}
-            headers = {
-                "apikey": key
-            }
+            headers = {"apikey": key}
 
             response = requests.get(url, headers=headers, data=payload)
 
