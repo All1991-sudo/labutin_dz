@@ -5,7 +5,7 @@ from typing import Any, Dict, List
 
 
 def load_transactions(path: str) -> List[Dict[str, Any]]:
-    """ Функция проверяющая по введённому пути файл json. Возвращает пустой список если:
+    """Функция проверяющая по введённому пути файл json. Возвращает пустой список если:
     его нет или содержит ошибку.
 
         Пример использования:
@@ -18,7 +18,7 @@ def load_transactions(path: str) -> List[Dict[str, Any]]:
         return []
     try:
         logger.info("OK")
-        with open(path, 'r', encoding='utf-8') as file:
+        with open(path, "r", encoding="utf-8") as file:
             data = json.load(file)
             if isinstance(data, list):
                 return data
