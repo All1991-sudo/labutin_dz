@@ -1,7 +1,8 @@
 import json
 import os
-from logging_config import setup_logger
 from typing import Any, Dict, List
+
+from logging_config import setup_logger
 
 
 def load_transactions(path: str) -> List[Dict[str, Any]]:
