@@ -14,10 +14,18 @@ def read_financial_operations_csv(file_path: str) -> List[Dict[str, str]]:
         List[Dict[str, str]]: Список словарей с транзакциями.
     """
     transactions = []
-    with open(file_path, mode='r', newline='', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file, delimiter=";")
         for row in reader:
-            transactions.append(row)
+            if "Открытие вклада" in row.get("description", ""):
+                deposit = row.get("to")
+                if row.get("from") == "":
+                    row["from"] = deposit
+            for key in row:
+                if row[key] == "":
+                    row[key] = None
+            else:
+                transactions.append(row)
     return transactions
 
 
