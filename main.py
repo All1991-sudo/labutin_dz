@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from src.processing import sorted_dict, sorted_dict_to_time
 from src.transaction_read import (read_financial_operations_csv,
-                                  read_financial_operations_excel)
+                                  read_excel_in_dict)
 from src.utils import load_transactions
 
 load_dotenv()
@@ -62,7 +62,7 @@ def main():
         transactions = read_financial_operations_csv(PATH_TO_CSV)
     elif choice == "3":
         print("Для обработки выбран XLSX-файл.")
-        transactions = read_financial_operations_excel(PATH_TO_XLSX)
+        transactions = read_excel_in_dict(PATH_TO_XLSX)
     else:
         print("Неверный выбор.")
         return
@@ -95,7 +95,7 @@ def main():
 
         # Сортировка
         sort_choice = input("Отсортировать операции по дате? Да/Нет: ").strip().lower()
-        if sort_choice == "да":
+        if sort_choice == "да" or sort_choice == "yes" or sort_choice == "lf":
             order_choice = (
                 input("Отсортировать по возрастанию или по убыванию? ").strip().lower()
             )

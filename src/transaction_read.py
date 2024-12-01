@@ -29,7 +29,7 @@ def read_financial_operations_csv(file_path: str) -> List[Dict[str, str]]:
     return transactions
 
 
-def read_financial_operations_excel(file_path: str) -> List[Dict[str, str]]:
+def read_excel_in_dict(file_path: str) -> List[Dict[str, str]]:
     """Читает финансовые операции из Excel-файла и возвращает список словарей с транзакциями.
 
     Args:
@@ -40,3 +40,24 @@ def read_financial_operations_excel(file_path: str) -> List[Dict[str, str]]:
     """
     df = pd.read_excel(file_path)
     return df.to_dict(orient='records')
+
+
+def open_read_excel(file_path: str):
+    """Открывает и считывает данные из Excel-файла.
+
+    Args:
+        file_path (str): Путь к Excel-файлу, который необходимо открыть.
+
+    Returns:
+        pd.DataFrame: Объект DataFrame, содержащий данные из Excel-файла.
+
+    Raises:
+        FileNotFoundError: Если указанный файл не найден.
+        ValueError: Если файл не является корректным Excel-файлом или если данные в файле не могут быть прочитаны.
+
+    Example:
+        >>> df = open_read_excel('path/to/your/file.xlsx')
+        >>> print(df.head())
+    """
+    data = pd.read_excel(file_path)
+    return data
