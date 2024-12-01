@@ -64,7 +64,9 @@ transactions = [
 ]
 
 
-def filter_by_currency(transaction_data: Iterable[Dict], currency: str) -> Generator[Dict, None, None]:
+def filter_by_currency(
+    transaction_data: Iterable[Dict], currency: str
+) -> Generator[Dict, None, None]:
     """
     Функция фильтрует транзакции по валюте.
 
@@ -79,8 +81,8 @@ def filter_by_currency(transaction_data: Iterable[Dict], currency: str) -> Gener
     if isinstance(transaction_data, (list, tuple)):
         for transaction in transaction_data:
             if (
-                    transaction.get("operationAmount", {}).get("currency", {}).get("code")
-                    == currency.upper().rstrip()
+                transaction.get("operationAmount", {}).get("currency", {}).get("code")
+                == currency.upper().rstrip()
             ):
                 yield transaction
 
